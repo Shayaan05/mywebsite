@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Classes | Mumbai's Premier Coaching Institute</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.3);
+            --gold: #fbbf24;
+            --success: #10b981;
+            --danger: #ef4444;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--light);
+            color: var(--primary);
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 5px;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: all 0.5s ease;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .loader-progress {
+            width: 0%;
+            height: 100%;
+            background: var(--accent);
+            animation: load 2s ease forwards;
+        }
+
+        @keyframes load {
+            to { width: 100%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+            padding: 0.75rem 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .nav-logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .nav-logo-main {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1;
+        }
+
+        .navbar.scrolled .nav-logo-main {
+            color: var(--primary);
+        }
+
+        .nav-logo-sub {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 2px;
+        }
+
+        .navbar.scrolled .nav-logo-sub {
+            color: var(--gray);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .navbar.scrolled .nav-links a {
+            color: var(--primary);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--accent);
+            color: white !important;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s !important;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .nav-cta::before {
+            display: none !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        .mobile-toggle {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .navbar.scrolled .mobile-toggle {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(120, 75, 162, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            display: block;
+            line-height: 1;
+        }
+
+        .hero-stat-number span {
+            color: var(--accent);
+        }
+
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 0.25rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+            border-color: white;
+        }
+
+        .hero-visual {
+            position: relative;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-image-main {
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .floating-card {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 1.5rem;
+            border-radius: 16px;
+            color: white;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-card.card-1 {
+            top: 10%;
+            left: -40px;
+            animation-delay: 0s;
+        }
+
+        .floating-card.card-2 {
+            bottom: 20%;
+            right: -40px;
+            animation-delay: 3s;
+            background: rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating-card h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .floating-card p {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* Marquee Section */
+        .marquee-section {
+            background: var(--accent);
+            padding: 1rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: flex;
+            animation: marquee 20s linear infinite;
+            white-space: nowrap;
+        }
+
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0 3rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 2rem;
+            background: white;
+            position: relative;
+        }
+
+        .about-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about-images {
+            position: relative;
+        }
+
+        .about-img-wrapper {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .about-img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .about-experience {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            background: var(--gradient-1);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .about-experience h3 {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .about-experience p {
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .about-content {
+            padding-left: 2rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .about-content h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .about-content > p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .credentials-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .credential-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s;
+        }
+
+        .credential-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .credential-item i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .credential-item span {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Toppers Section */
+        .toppers {
+            padding: 8rem 2rem;
+            background: var(--light);
+            position: relative;
+        }
+
+        .toppers::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .toppers-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .topper-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .topper-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .topper-card.featured {
+            transform: scale(1.05);
+            border: 3px solid var(--gold);
+        }
+
+        .topper-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .topper-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 4px 10px rgba(251, 191, 36, 0.4);
+        }
+
+        .topper-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .topper-card:hover .topper-image {
+            transform: scale(1.1);
+        }
+
+        .topper-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .topper-info h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .topper-info .exam {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .topper-score {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Courses Section */
+        .courses {
+            padding: 8rem 2rem;
+            background: white;
+        }
+
+        .courses-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .course-card {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .course-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .course-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .course-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 1.75rem;
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover .course-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .course-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .course-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .admission-open {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--success);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            animation: pulse-badge 2s infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 2rem;
+            background: var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(120, 75, 162, 0.1) 0%, transparent 50%);
+        }
+
+        .features .section-header h2,
+        .features .section-header p {
+            color: white;
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-box {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.4s;
+        }
+
+        .feature-box:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-10px);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-1);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .feature-box h3 {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .feature-box p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 2rem;
+            background: var(--light);
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info > p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-details p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .contact-details a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .contact-card-header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .contact-card-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card-header p {
+            opacity: 0.9;
+        }
+
+        .contact-card-body {
+            padding: 2rem;
+        }
+
+        .contact-person {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .contact-person img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 4px solid var(--light);
+        }
+
+        .contact-person h4 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-person p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .contact-cta {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-cta a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .contact-cta .btn-call {
+            background: var(--success);
+            color: white;
+        }
+
+        .contact-cta .btn-call:hover {
+            background: #059669;
+        }
+
+        .contact-cta .btn-whatsapp {
+            background: #25d366;
+            color: white;
+        }
+
+        .contact-cta .btn-whatsapp:hover {
+            background: #128c7e;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-logo {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-brand-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-brand-content p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .footer-column h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-bottom span {
+            color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container,
+            .about-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .toppers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .courses-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .about-content h2,
+            .section-header h2,
+            .contact-info h2 {
+                font-size: 2rem;
+            }
+
+            .toppers-grid,
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topper-card.featured {
+                transform: none;
+            }
+
+            .credentials-list {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .floating-card {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader-content">
+            <div class="loader-logo">VC</div>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <div class="nav-logo-icon">VC</div>
+                <div class="nav-logo-text">
+                    <div class="nav-logo-main">Vision Classes</div>
+                    <div class="nav-logo-sub">SCHOOL & COMMERCE</div>
+                </div>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#toppers">Toppers</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#contact" class="nav-cta">Enquire Now</a></li>
+            </ul>
+            <div class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-crown"></i>
+                    <span>No.1 in Navpada, Kurla West</span>
+                </div>
+                <h1 class="hero-title">
+                    Your Goal is<br>
+                    <span>Our Vision</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Mumbai's premier coaching institute with 13+ years of excellence. 
+                    Fully air-conditioned digital classrooms with expert faculty led by Prof. Vijay Dubey.
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">13<span>+</span></span>
+                        <div class="hero-stat-label">Years</div>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">1000<span>+</span></span>
+                        <div class="hero-stat-label">Students</div>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-number">95<span>%</span></span>
+                        <div class="hero-stat-label">Success</div>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#courses" class="btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Explore Courses
+                    </a>
+                    <a href="#contact" class="btn-secondary">
+                        <i class="fas fa-phone-alt"></i>
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <img src="vmcimage/pics/img1.jpeg" alt="Prof. Vijay Dubey" class="hero-image-main">
+                <div class="floating-card card-1">
+                    <h4>13+</h4>
+                    <p>Years of<br>Excellence</p>
+                </div>
+                <div class="floating-card card-2">
+                    <h4>50+</h4>
+                    <p>Board<br>Toppers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee-section">
+        <div class="marquee-content">
+            <div class="marquee-item"><i class="fas fa-star"></i> Admissions Open for 2024-25</div>
+            <div class="marquee-item"><i class="fas fa-trophy"></i> 95% Success Rate</div>
+            <div class="marquee-item"><i class="fas fa-certificate"></i> Expert Faculty</div>
+            <div class="marquee-item"><i class="fas fa-snowflake"></i> Fully AC Classrooms</div>
+            <div class="marquee-item"><i class="fas fa-tv"></i> Digital Learning</div>
+            <div class="marquee-item"><i class="fas fa-star"></i> Admissions Open for 2024-25</div>
+            <div class="marquee-item"><i class="fas fa-trophy"></i> 95% Success Rate</div>
+            <div class="marquee-item"><i class="fas fa-certificate"></i> Expert Faculty</div>
+            <div class="marquee-item"><i class="fas fa-snowflake"></i> Fully AC Classrooms</div>
+            <div class="marquee-item"><i class="fas fa-tv"></i> Digital Learning</div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-images">
+                <div class="about-img-wrapper">
+                    <img src="vmcimage/pics/img2.jpeg" alt="Prof. Vijay Dubey" class="about-img">
+                </div>
+                <div class="about-experience">
+                    <h3>13+</h3>
+                    <p>Years of<br>Excellence</p>
+                </div>
+            </div>
+            <div class="about-content">
+                <span class="section-tag">About Us</span>
+                <h2>Leading Coaching Institute in Kurla West</h2>
+                <p>
+                    Welcome to Vision Classes, where education meets excellence. Under the expert guidance of 
+                    <strong>Prof. Vijay Dubey</strong>, we have been transforming students into achievers for over 13 years.
+                </p>
+                <p>
+                    Our state-of-the-art audio-visual digital classrooms and fully air-conditioned environment 
+                    provide the perfect setting for focused learning. Located in Navpada, Kurla West, we are 
+                    recognized as the No.1 coaching institute in the area.
+                </p>
+                <div class="credentials-list">
+                    <div class="credential-item">
+                        <i class="fas fa-award"></i>
+                        <span>C.A [IPCC]</span>
+                    </div>
+                    <div class="credential-item">
+                        <i class="fas fa-award"></i>
+                        <span>M.B.A [Finance]</span>
+                    </div>
+                    <div class="credential-item">
+                        <i class="fas fa-award"></i>
+                        <span>P.G.D.F.M</span>
+                    </div>
+                    <div class="credential-item">
+                        <i class="fas fa-award"></i>
+                        <span>M.COM</span>
+                    </div>
+                    <div class="credential-item">
+                        <i class="fas fa-award"></i>
+                        <span>B.E.D</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toppers Section -->
+    <section class="toppers" id="toppers">
+        <div class="section-header">
+            <span class="section-tag">Our Achievers</span>
+            <h2>Star Toppers 2023</h2>
+            <p>Celebrating the success of our brilliant students who made us proud</p>
+        </div>
+        <div class="toppers-grid">
+            <div class="topper-card featured">
+                <span class="topper-badge"><i class="fas fa-crown"></i> SSC Topper</span>
+                <img src="vmcimage/pics/img3.jpeg" alt="Ria Mishra" class="topper-image">
+                <div class="topper-info">
+                    <h4>Ria Mishra</h4>
+                    <p class="exam">S.S.C 2023</p>
+                    <div class="topper-score">91.00%</div>
+                </div>
+            </div>
+            <div class="topper-card featured">
+                <span class="topper-badge"><i class="fas fa-crown"></i> HSC Topper</span>
+                <img src="vmcimage/pics/img4.jpeg" alt="Saroj Shivam" class="topper-image">
+                <div class="topper-info">
+                    <h4>Saroj Shivam</h4>
+                    <p class="exam">H.S.C 2023</p>
+                    <div class="topper-score">87.33%</div>
+                </div>
+            </div>
+            <div class="topper-card">
+                <span class="topper-badge">SSC</span>
+                <img src="vmcimage/pics/img10.jpeg" alt="Mishra Riju" class="topper-image">
+                <div class="topper-info">
+                    <h4>Mishra Riju</h4>
+                    <p class="exam">S.S.C 2023</p>
+                    <div class="topper-score">95.20%</div>
+                </div>
+            </div>
+            <div class="topper-card">
+                <span class="topper-badge">SSC</span>
+                <img src="vmcimage/pics/img6.jpeg" alt="Abhishek Yadav" class="topper-image">
+                <div class="topper-info">
+                    <h4>Abhishek Yadav</h4>
+                    <p class="exam">S.S.C 2023</p>
+                    <div class="topper-score">87.00%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <div class="section-header">
+            <span class="section-tag">Our Programs</span>
+            <h2>Courses Offered</h2>
+            <p>Admissions open for academic year 2024-25. Enroll now!</p>
+        </div>
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-icon"><i class="fas fa-school"></i></div>
+                <h3>IX & X Standard</h3>
+                <p>Secondary School Certificate</p>
+                <span class="admission-open"><i class="fas fa-check-circle"></i> Admissions Open</span>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class="fas fa-building"></i></div>
+                <h3>F.Y.J.C</h3>
+                <p>11th Commerce</p>
+                <span class="admission-open"><i class="fas fa-check-circle"></i> Admissions Open</span>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class="fas fa-university"></i></div>
+                <h3>S.Y.J.C</h3>
+                <p>12th Commerce</p>
+                <span class="admission-open"><i class="fas fa-check-circle"></i> Admissions Open</span>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>B.Com</h3>
+                <p>F.Y. / S.Y. / T.Y.</p>
+                <span class="admission-open"><i class="fas fa-check-circle"></i> Admissions Open</span>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class="fas fa-briefcase"></i></div>
+                <h3>B.M.S</h3>
+                <p>Management Studies</p>
+                <span class="admission-open"><i class="fas fa-check-circle"></i> Admissions Open</span>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class="fas fa-calculator"></i></div>
+                <h3>B.A.F</h3>
+                <p>Accounting & Finance</p>
+                <span class="admission-open"><i class="fas fa-check-circle"></i> Admissions Open</span>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class="fas fa-chart-pie"></i></div>
+                <h3>B.B.I</h3>
+                <p>Banking & Insurance</p>
+                <span class="admission-open"><i class="fas fa-check-circle"></i> Admissions Open</span>
+            </div>
+            <div class="course-card">
+                <div class="course-icon"><i class="fas fa-book"></i></div>
+                <h3>M.Com</h3>
+                <p>Master of Commerce</p>
+                <span class="admission-open"><i class="fas fa-check-circle"></i> Admissions Open</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-bg"></div>
+        <div class="section-header">
+            <span class="section-tag" style="background: rgba(255,255,255,0.1); color: white;">Why Choose Us</span>
+            <h2>The Vision Classes Advantage</h2>
+            <p>Features that make us the preferred choice in Kurla West</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fas fa-snowflake"></i></div>
+                <h3>Fully AC Classrooms</h3>
+                <p>Comfortable air-conditioned environment for focused and effective learning experience.</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fas fa-tv"></i></div>
+                <h3>Audio-Visual Digital</h3>
+                <p>Modern digital classroom technology with projectors for better concept understanding.</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                <h3>Expert Faculty</h3>
+                <p>Highly qualified teachers led by Prof. Vijay Dubey with 13+ years experience.</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fas fa-users"></i></div>
+                <h3>Small Batch Size</h3>
+                <p>Limited students per batch ensuring personalized attention to every student.</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fas fa-clipboard-check"></i></div>
+                <h3>Regular Assessments</h3>
+                <p>Continuous evaluation through tests and assignments to track student progress.</p>
+            </div>
+            <div class="feature-box">
+                <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+                <h3>Proven Results</h3>
+                <p>Consistent track record of producing board exam toppers year after year.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <span class="section-tag">Contact Us</span>
+                <h2>Get In Touch</h2>
+                <p>Visit our center or call us to start your journey to success</p>
+
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-details">
+                            <h4>Visit Our Center</h4>
+                            <p>Room No. 3, 1st Floor, Raju Bedekar Marg,<br>
+                            Near Hanuman Mandir, L.B.S, Vidyavihar Road,<br>
+                            Navpada, Kurla (West), Mumbai - 400070</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div class="contact-details">
+                            <h4>Call Us</h4>
+                            <p><a href="tel:8369947228">8369947228</a> / <a href="tel:9372846118">9372846118</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-user-tie"></i></div>
+                        <div class="contact-details">
+                            <h4>Director</h4>
+                            <p>Prof. Vijay Dubey<br><small>C.A [IPCC], M.B.A [Finance], P.G.D.F.M, M.COM, B.E.D</small></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                        <div class="contact-details">
+                            <h4>Working Hours</h4>
+                            <p>Monday - Saturday: 9:00 AM - 8:00 PM<br>Sunday: Closed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-card-header">
+                    <h3><i class="fas fa-headset"></i> Quick Enquiry</h3>
+                    <p>Get a callback within 24 hours</p>
+                </div>
+                <div class="contact-card-body">
+                    <div class="contact-person">
+                        <img src="vmcimage/pics/img7.jpeg" alt="Prof. Vijay Dubey">
+                        <h4>Prof. Vijay Dubey</h4>
+                        <p>Founder & Director</p>
+                    </div>
+                    <div class="contact-cta">
+                        <a href="tel:8369947228" class="btn-call">
+                            <i class="fas fa-phone-alt"></i> Call Now
+                        </a>
+                        <a href="https://wa.me/918369947228" class="btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">VC</div>
+                <div class="footer-brand-content">
+                    <h3>Vision Classes</h3>
+                    <p>School & Commerce<br>13 Years of Quality Education<br>Your Goal is Our Vision</p>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="#courses"><i class="fas fa-chevron-right"></i> Courses</a></li>
+                    <li><a href="#toppers"><i class="fas fa-chevron-right"></i> Toppers</a></li>
+                    <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Courses</h4>
+                <ul>
+                    <li><a href="#courses"><i class="fas fa-chevron-right"></i> IX & X Standard</a></li>
+                    <li><a href="#courses"><i class="fas fa-chevron-right"></i> F.Y.J.C & S.Y.J.C</a></li>
+                    <li><a href="#courses"><i class="fas fa-chevron-right"></i> B.Com (All Years)</a></li>
+                    <li><a href="#courses"><i class="fas fa-chevron-right"></i> B.M.S / B.A.F / B.B.I</a></li>
+                    <li><a href="#courses"><i class="fas fa-chevron-right"></i> M.Com</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:8369947228"><i class="fas fa-phone"></i> 8369947228</a></li>
+                    <li><a href="tel:9372846118"><i class="fas fa-phone"></i> 9372846118</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Kurla West, Mumbai</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> info@visionclasses.in</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Vision Classes. All Rights Reserved. | Made with <span><i class="fas fa-heart"></i></span> in Mumbai</p>
+        </div>
+    </footer>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Navbar Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.topper-card, .course-card, .feature-box').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

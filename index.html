@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISION MANAGEMENT CLASSES - Premier Admissions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a0a1a;
+            --secondary: #12122e;
+            --accent: #c9a227;
+            --gold: #ffd700;
+            --gold-light: #fff8e7;
+            --white: #ffffff;
+            --gray: #f8f9fa;
+            --text-dark: #1a1a2e;
+            --text-light: #6c757d;
+            --success: #28a745;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background: var(--gray);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(10, 10, 26, 0.98), rgba(18, 18, 46, 0.98));
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 2px solid var(--accent);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            color: var(--primary);
+            font-size: 1.4rem;
+            box-shadow: 0 4px 15px rgba(201, 162, 39, 0.4);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .mobile-menu {
+            display: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, #1a1a3e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 100px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(201, 162, 39, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 1000px;
+            padding: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(201, 162, 39, 0.15);
+            border: 2px solid var(--accent);
+            color: var(--gold);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            animation: fadeInUp 1s ease 0.2s both;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+            display: block;
+            font-size: 0.5em;
+            margin-top: 1rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.4s both;
+            letter-spacing: 1px;
+        }
+
+        .hero-services {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .service-tag {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            color: var(--white);
+            font-weight: 500;
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .service-tag:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 162, 39, 0.3);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            color: var(--primary);
+            box-shadow: 0 10px 30px rgba(201, 162, 39, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(201, 162, 39, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--white);
+            padding: 5rem 0;
+            position: relative;
+            z-index: 3;
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--gray), var(--white));
+            transition: all 0.3s ease;
+            border: 1px solid rgba(201, 162, 39, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        /* Results Section */
+        .results {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(201, 162, 39, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .results .section-header h2 {
+            color: var(--white);
+        }
+
+        .results .section-header h2::after {
+            background: linear-gradient(90deg, var(--gold), var(--accent));
+        }
+
+        .results .section-header p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .results-stats {
+            max-width: 1400px;
+            margin: 0 auto 5rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .result-stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(201, 162, 39, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .result-stat-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 15px 40px rgba(201, 162, 39, 0.2);
+        }
+
+        .result-stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .result-stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .students-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .student-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 2.5rem 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            text-align: center;
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            overflow: hidden;
+        }
+
+        .student-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), var(--gold), var(--accent));
+        }
+
+        .student-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--gold);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.4),
+                0 0 40px rgba(201, 162, 39, 0.2);
+        }
+
+        .topper-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--gold), var(--accent));
+            color: var(--primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            z-index: 10;
+            letter-spacing: 1px;
+        }
+
+        .student-photo-container {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            border-radius: 50%;
+            padding: 5px;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            box-shadow: 0 10px 30px rgba(201, 162, 39, 0.3);
+        }
+
+        .student-photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            background: var(--white);
+        }
+
+        .student-photo-fallback {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary);
+            border: 4px solid var(--primary);
+        }
+
+        .student-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .sgpa-container {
+            margin: 1.5rem 0;
+        }
+
+        .sgpa-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .sgpa-display {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--success), #20c997);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1.6rem;
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
+        }
+
+        .sgpa-display i {
+            font-size: 1.2rem;
+        }
+
+        .course-info {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .course-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .university-name {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 8rem 0;
+            background: var(--white);
+        }
+
+        .services-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .service-card {
+            background: var(--gray);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(201, 162, 39, 0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent);
+        }
+
+        .service-icon {
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .service-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.2), rgba(255, 215, 0, 0.1));
+        }
+
+        .service-icon i {
+            position: relative;
+            z-index: 2;
+            color: var(--gold);
+        }
+
+        .service-content {
+            padding: 2.5rem;
+        }
+
+        .service-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .service-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            padding: 0.8rem 0;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 500;
+        }
+
+        .service-features li i {
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        /* Colleges Section */
+        .colleges {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--gray), var(--white));
+        }
+
+        .colleges-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .college-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .college-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .college-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin: 0 auto 1.5rem;
+            font-size: 1.4rem;
+            box-shadow: 0 5px 15px rgba(201, 162, 39, 0.3);
+        }
+
+        .college-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .college-card p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(201, 162, 39, 0.1) 0%, transparent 50%);
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        .contact-info h2 span {
+            color: var(--gold);
+        }
+
+        .contact-info > p {
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .contact-item i {
+            width: 60px;
+            height: 60px;
+            background: rgba(201, 162, 39, 0.15);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.4rem;
+            border: 1px solid rgba(201, 162, 39, 0.3);
+        }
+
+        .contact-item div strong {
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+            color: var(--gold);
+        }
+
+        .contact-item div span {
+            opacity: 0.9;
+            font-size: 1.05rem;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 3.5rem;
+            border-radius: 25px;
+            border: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--gold);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--white);
+            font-family: inherit;
+            font-size: 1rem;
+            border: 1px solid rgba(201, 162, 39, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 20px rgba(201, 162, 39, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.3rem;
+            background: linear-gradient(135deg, var(--accent), var(--gold));
+            color: var(--primary);
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(201, 162, 39, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: #050510;
+            color: var(--white);
+            padding: 4rem 0 1.5rem;
+            border-top: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            line-height: 2;
+            transition: color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--gold);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(201, 162, 39, 0.2);
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.95rem;
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            z-index: 9999;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            animation: whatsapp-bounce 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            bottom: 75px;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .whatsapp-float:hover .whatsapp-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .whatsapp-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            right: 25px;
+            border: 6px solid transparent;
+            border-top-color: var(--primary);
+        }
+
+        @keyframes whatsapp-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .whatsapp-float::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(37, 211, 102, 0.4);
+            z-index: -1;
+            animation: whatsapp-pulse 2s infinite;
+        }
+
+        @keyframes whatsapp-pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .students-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+
+            .whatsapp-float {
+                width: 55px;
+                height: 55px;
+                font-size: 1.7rem;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        /* Scroll Animation */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s ease;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">VMC</div>
+                <span>VISION MANAGEMENT CLASSES</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#colleges">Colleges for Admission</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-crown"></i> Excellence Through Education
+            </div>
+            <h1>
+                VISION MANAGEMENT CLASSES
+                <span>Your Gateway to Premier Admissions</span>
+            </h1>
+            <p class="hero-tagline">
+                Excellence through Education, Dedication, Guidance & Career Counselling
+            </p>
+            <div class="hero-services">
+                <span class="service-tag"><i class="fas fa-briefcase"></i> MBA/MMS</span>
+                <span class="service-tag"><i class="fas fa-graduation-cap"></i> PGDM</span>
+                <span class="service-tag"><i class="fas fa-user-md"></i> Medical</span>
+                <span class="service-tag"><i class="fas fa-cogs"></i> Engineering</span>
+            </div>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-phone"></i> Get Admission Help
+                </a>
+                <a href="#results" class="btn btn-secondary">
+                    <i class="fas fa-trophy"></i> View Our Results
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item scroll-reveal">
+                <span class="stat-number">15+</span>
+                <span class="stat-label">Years Experience</span>
+            </div>
+            <div class="stat-item scroll-reveal">
+                <span class="stat-number">5000+</span>
+                <span class="stat-label">Students Placed</span>
+            </div>
+            <div class="stat-item scroll-reveal">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Colleges for Admission</span>
+            </div>
+            <div class="stat-item scroll-reveal">
+                <span class="stat-number">98%</span>
+                <span class="stat-label">Success Rate</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header scroll-reveal">
+            <h2>Our Services</h2>
+            <p>Comprehensive coaching and admission assistance for premier professional courses</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card scroll-reveal">
+                <div class="service-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <div class="service-content">
+                    <h3>MBA/MMS, PGDM Coaching</h3>
+                    <p>Complete preparation for top B-school entrances including CAT, XAT, CMAT, NMAT, SNAP, and more.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check-circle"></i> CAT Coaching</li>
+                        <li><i class="fas fa-check-circle"></i> XAT Preparation</li>
+                        <li><i class="fas fa-check-circle"></i> CMAT Training</li>
+                        <li><i class="fas fa-check-circle"></i> GD/PI Preparation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="service-card scroll-reveal">
+                <div class="service-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="service-content">
+                    <h3>Medical Admissions</h3>
+                    <p>Expert guidance for medical admissions through NEET and management quota in top medical colleges.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check-circle"></i> MBBS Admission</li>
+                        <li><i class="fas fa-check-circle"></i> BDS Guidance</li>
+                        <li><i class="fas fa-check-circle"></i> BHMS Counseling</li>
+                        <li><i class="fas fa-check-circle"></i> MS Specializations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="service-card scroll-reveal">
+                <div class="service-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div class="service-content">
+                    <h3>Engineering Admissions</h3>
+                    <p>Direct admission assistance in top engineering colleges for B.Tech, BE, and M.Tech programs.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check-circle"></i> B.Tech Admission</li>
+                        <li><i class="fas fa-check-circle"></i> BE Programs</li>
+                        <li><i class="fas fa-check-circle"></i> M.Tech Guidance</li>
+                        <li><i class="fas fa-check-circle"></i> Top IITs & NITs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Results Section -->
+    <section class="results" id="results">
+        <div class="section-header scroll-reveal">
+            <h2><i class="fas fa-trophy"></i> Our Star Performers</h2>
+            <p>Celebrating the exceptional achievements of our brilliant students</p>
+        </div>
+
+        <div class="results-stats">
+            <div class="result-stat-box scroll-reveal">
+                <div class="result-stat-number">7.37</div>
+                <div class="result-stat-label">Average SGPA</div>
+            </div>
+            <div class="result-stat-box scroll-reveal">
+                <div class="result-stat-number">7.61</div>
+                <div class="result-stat-label">Highest SGPA</div>
+            </div>
+            <div class="result-stat-box scroll-reveal">
+                <div class="result-stat-number">5</div>
+                <div class="result-stat-label">Star Performers</div>
+            </div>
+            <div class="result-stat-box scroll-reveal">
+                <div class="result-stat-number">100%</div>
+                <div class="result-stat-label">Success Rate</div>
+            </div>
+        </div>
+
+        <div class="students-grid">
+            <!-- Student 1: Soniya Gouda - TOPPER -->
+            <div class="student-card scroll-reveal">
+                <div class="topper-badge"><i class="fas fa-crown"></i> TOPPER</div>
+                <div class="student-photo-container">
+                    <div class="student-photo-fallback"><i class="fas fa-user-graduate"></i></div>
+                </div>
+                <div class="student-name">Soniya Gouda</div>
+                <div class="sgpa-container">
+                    <div class="sgpa-label">SGPA</div>
+                    <div class="sgpa-display"><i class="fas fa-star"></i> 7.61</div>
+                </div>
+                <div class="course-info">
+                    <div class="course-name">MBA/MMS</div>
+                    <div class="university-name">University of Mumbai</div>
+                </div>
+            </div>
+
+            <!-- Student 2 -->
+            <div class="student-card scroll-reveal">
+                <div class="student-photo-container">
+                    <div class="student-photo-fallback"><i class="fas fa-user-graduate"></i></div>
+                </div>
+                <div class="student-name">Shubham Manoj Chaurasiya</div>
+                <div class="sgpa-container">
+                    <div class="sgpa-label">SGPA</div>
+                    <div class="sgpa-display"><i class="fas fa-star"></i> 7.53</div>
+                </div>
+                <div class="course-info">
+                    <div class="course-name">MBA/MMS</div>
+                    <div class="university-name">University of Mumbai</div>
+                </div>
+            </div>
+
+            <!-- Student 3 -->
+            <div class="student-card scroll-reveal">
+                <div class="student-photo-container">
+                    <div class="student-photo-fallback"><i class="fas fa-user-graduate"></i></div>
+                </div>
+                <div class="student-name">Kajol Prabhakar Panda</div>
+                <div class="sgpa-container">
+                    <div class="sgpa-label">SGPA</div>
+                    <div class="sgpa-display"><i class="fas fa-star"></i> 7.50</div>
+                </div>
+                <div class="course-info">
+                    <div class="course-name">MBA/MMS</div>
+                    <div class="university-name">University of Mumbai</div>
+                </div>
+            </div>
+
+            <!-- Student 4 -->
+            <div class="student-card scroll-reveal">
+                <div class="student-photo-container">
+                    <div class="student-photo-fallback"><i class="fas fa-user-graduate"></i></div>
+                </div>
+                <div class="student-name">Anjali Ghanshyam Varma</div>
+                <div class="sgpa-container">
+                    <div class="sgpa-label">SGPA</div>
+                    <div class="sgpa-display"><i class="fas fa-star"></i> 7.46</div>
+                </div>
+                <div class="course-info">
+                    <div class="course-name">MBA/MMS</div>
+                    <div class="university-name">University of Mumbai</div>
+                </div>
+            </div>
+
+            <!-- Student 5 -->
+            <div class="student-card scroll-reveal">
+                <div class="student-photo-container">
+                    <div class="student-photo-fallback"><i class="fas fa-user-graduate"></i></div>
+                </div>
+                <div class="student-name">Dharmendra Singh</div>
+                <div class="sgpa-container">
+                    <div class="sgpa-label">SGPA</div>
+                    <div class="sgpa-display"><i class="fas fa-star"></i> 7.15</div>
+                </div>
+                <div class="course-info">
+                    <div class="course-name">MBA/MMS</div>
+                    <div class="university-name">University of Mumbai</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Colleges Section -->
+    <section class="colleges" id="colleges">
+        <div class="section-header scroll-reveal">
+            <h2>Colleges for Admission</h2>
+            <p>We provide admission assistance in these premier institutions</p>
+        </div>
+        <div class="colleges-grid">
+            <div class="college-card scroll-reveal">
+                <div class="college-number">1</div>
+                <h3>Bharati Vidyapeeth</h3>
+                <p>Deemed to be University</p>
+            </div>
+            <div class="college-card scroll-reveal">
+                <div class="college-number">2</div>
+                <h3>D Y Patil University</h3>
+                <p>Top Private University</p>
+            </div>
+            <div class="college-card scroll-reveal">
+                <div class="college-number">3</div>
+                <h3>ITM Skills University</h3>
+                <p>ITM Group of Institutions</p>
+            </div>
+            <div class="college-card scroll-reveal">
+                <div class="college-number">4</div>
+                <h3>NMIMS</h3>
+                <p>SVKM's Deemed University</p>
+            </div>
+            <div class="college-card scroll-reveal">
+                <div class="college-number">5</div>
+                <h3>Somaiya Vidyavihar</h3>
+                <p>K J Somaiya Institute</p>
+            </div>
+            <div class="college-card scroll-reveal">
+                <div class="college-number">6</div>
+                <h3>Thakur Institute</h3>
+                <p>Management Studies & Research</p>
+            </div>
+            <div class="college-card scroll-reveal">
+                <div class="college-number">7</div>
+                <h3>Kohinoor Business School</h3>
+                <p>KBS Mumbai</p>
+            </div>
+            <div class="college-card scroll-reveal">
+                <div class="college-number">8</div>
+                <h3>GNVS Institute</h3>
+                <p>NAAC Accredited</p>
+            </div>
+            <div class="college-card scroll-reveal">
+                <div class="college-number">9</div>
+                <h3>Indira Institute</h3>
+                <p>Management PGDM</p>
+            </div>
+            <div class="college-card scroll-reveal">
+                <div class="college-number">10</div>
+                <h3>B.G.P.S. Institute</h3>
+                <p>Management & Research</p>
+            </div>
+            <div class="college-card scroll-reveal">
+                <div class="college-number">11</div>
+                <h3>Aruna Manharlal Shah</h3>
+                <p>Institute of Management</p>
+            </div>
+            <div class="college-card scroll-reveal">
+                <div class="college-number">12</div>
+                <h3>SPDT Institute</h3>
+                <p>Management & Research</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info scroll-reveal">
+                <h2>Get in <span>Touch</span></h2>
+                <p>Ready to secure your admission in top colleges? Contact us today for expert guidance and counseling. Join our successful students!</p>
+
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-user-tie"></i>
+                        <div>
+                            <strong>Director</strong>
+                            <span>Prof. Vijay Kumar</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Phone</strong>
+                            <span>+91-8369947228 / +91-9594747372</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Address</strong>
+                            <span>Room No. 3, 1st Floor, Raju Bedekar Marg, Near Hanuman Mandir, L.B.S., Vidyavihar Road, Navpada, Kurla (West), Mumbai-400070</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form scroll-reveal">
+                <form onsubmit="event.preventDefault(); alert('Thank you for your interest! We will contact you soon.');">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label>Interested Course</label>
+                        <select required>
+                            <option value="">Select Course</option>
+                            <option value="mba">MBA/MMS</option>
+                            <option value="pgdm">PGDM</option>
+                            <option value="mbbs">MBBS</option>
+                            <option value="bds">BDS</option>
+                            <option value="bhms">BHMS</option>
+                            <option value="ms">MS</option>
+                            <option value="engineering">Engineering</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea rows="4" placeholder="Tell us about your requirements"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Send Inquiry
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>VISION MANAGEMENT CLASSES</h4>
+                <p>Your Gateway to Premier Management, Medical, and Engineering Admission. Excellence through Education, Dedication, Guidance & Career Counselling.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="#home">Home</a><br>
+                <a href="#services">Services</a><br>
+                <a href="#results">Results</a><br>
+                <a href="#colleges">Colleges for Admission</a><br>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h4>Courses</h4>
+                <a href="#">MBA/MMS Coaching</a><br>
+                <a href="#">PGDM Admission</a><br>
+                <a href="#">Medical Admissions</a><br>
+                <a href="#">Engineering Admissions</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Prof. Vijay Kumar: +91-8369947228</p>
+                <p>Prof. Sushil: +91-9594747372</p>
+                <p>Mumbai, Maharashtra</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 VISION MANAGEMENT CLASSES. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/918369947228?text=Hello%20Vision%20Management%20Classes,%20I%20am%20interested%20in%20admission%20guidance." class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">Chat with us</span>
+    </a>
+
+    <script>
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach((el) => observer.observe(el));
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(10, 10, 26, 0.98)';
+                navbar.style.boxShadow = '0 4px 30px rgba(0,0,0,0.3)';
+            } else {
+                navbar.style.background = 'linear-gradient(135deg, rgba(10, 10, 26, 0.98), rgba(18, 18, 46, 0.98))';
+            }
+        });
+    </script>
+</body>
+</html>
